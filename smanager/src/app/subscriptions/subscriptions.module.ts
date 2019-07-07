@@ -8,39 +8,34 @@ import { ManageSubscriptionReactiveComponent } from './manage-subscription-react
 import { SubscriptionListComponent } from './subscription-list/subscription-list.component'
 import { SubscriptionService } from './subscription.service';
 import { Subscription2Service } from './subscription2.service';
-import { Duartion } from './subscription';
+
 import { RouterModule } from '@angular/router';
 import { SubscriptionDetailComponent } from './subscription-detail/subscription-detail.component';
 import { SubscriptionHomeComponent } from './subscription-home/subscription-home.component';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { AuthInterceptor } from '../auth.interceptor';
 @NgModule({
   declarations: [ManageSubscriptionComponent, ManageSubscriptionReactiveComponent, SubscriptionListComponent, SubscriptionDetailComponent, SubscriptionHomeComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forChild([
       {
         path: '', component: SubscriptionHomeComponent, children: [
           { path: '', component: SubscriptionListComponent },
-          { path: 'new', component: ManageSubscriptionComponent },
-          { path: ':id', component: SubscriptionDetailComponent }
+          { path: 'new', component: ManageSubscriptionReactiveComponent },
+          { path: 'edit/:id', component: ManageSubscriptionReactiveComponent },
+          { path: ':id', component: SubscriptionDetailComponent },
+
         ]
       }]
     )
   ],
   providers: [{
-    provide: SubscriptionService, useFactory: () => ({
-      getSubscriptions() {
-        return [
-          { name: '4Subscription', price: 100, duration: 1, durationType: Duartion.MONTH },
-          { name: '4Subscription2', price: 10, duration: 4, durationType: Duartion.WEEK },
-          { name: '4Subscription3', price: 20, duration: 3, durationType: Duartion.MONTH },
-          { name: '4Subscription4', price: 30, duration: 6, durationType: Duartion.MONTH }
-        ]
-      }
-    })
-  }],
+    provide: SubscriptionService, useClass: SubscriptionService
+  }, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   exports: [ManageSubscriptionComponent, ManageSubscriptionReactiveComponent, SubscriptionListComponent]
 })
 export class SubscriptionsModule { }

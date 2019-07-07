@@ -1,23 +1,20 @@
 {
   "plans": [
     {
-      "id": 1,
+      "id": 100,
       "period": "weekly",
-      "interval": 1,
-      "item": {
-        "name": "Test Weekly 1 plan",
-        "description": "Description for the weekly 1 plan",
-        "amount": 600,
-        "currency": "INR"
-      },
-      "notes": {
-        "notes_key": "Beam me up Scotty"
-      }
+      "interval": 1
+    },
+    {
+      "id": 101,
+      "period": "monthly",
+      "interval": 1
     }
   ],
   "subscriptions": [
     {
-      "plan_id": 1,
+      "id": "sub1",
+      "plan_id": 100,
       "total_count": 6,
       "start_at": 1561852800,
       "addons": [
@@ -34,6 +31,35 @@
       },
       "customer_notify": 1,
       "expire_by": "1561939199"
+    },
+    {
+      "name": "Monthly Screen Sub ",
+      "plan_id": "101",
+      "total_count": 22,
+      "start_at": 34121231412,
+      "id": "7PRmKS6",
+      "notes": {
+        "notes_key": "A charge for 10 screens"
+      },
+      "addons": [
+        {
+          "item": {
+            "name": "Delivery charges",
+            "amount": 30000,
+            "currency": "INR"
+          }
+        }
+      ]
+    },
+    {
+      "name": "new mon sub",
+      "plan_id": "101",
+      "total_count": 10,
+      "start_at": 1222444,
+      "notes": {
+        "notes_key": "test notes"
+      },
+      "id": "rzbUmvV"
     }
   ]
 }

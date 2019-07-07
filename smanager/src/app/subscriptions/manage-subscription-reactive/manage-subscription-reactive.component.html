@@ -2,16 +2,16 @@
   <form [formGroup]="form" (submit)="handleSubmit()">
     <label for="name">Subscription Name</label>
     <input
-      formControlName="subscriptionName"
+      formControlName="name"
       type="text"
       placeholder="Subscription name.."
     />
 
     <p
       *ngIf="
-        form.controls.subscriptionName.touched &&
-        form.controls.subscriptionName.dirty &&
-        form.controls.subscriptionName.errors?.required
+        form.controls.name.touched &&
+        form.controls.name.dirty &&
+        form.controls.name.errors?.required
       "
       class="error"
     >
@@ -20,9 +20,9 @@
 
     <p
       *ngIf="
-        form.controls.subscriptionName.touched &&
-        form.controls.subscriptionName.dirty &&
-        form.controls.subscriptionName.errors?.maxlength
+        form.controls.name.touched &&
+        form.controls.name.dirty &&
+        form.controls.name.errors?.maxlength
       "
       class="error"
     >
@@ -31,32 +31,58 @@
 
     <p
       *ngIf="
-        form.controls.subscriptionName.touched &&
-        form.controls.subscriptionName.dirty &&
-        form.controls.subscriptionName.errors?.minlength
+        form.controls.name.touched &&
+        form.controls.name.dirty &&
+        form.controls.name.errors?.minlength
       "
       class="error"
     >
       Subscription Name is too short.
     </p>
 
-    <!--
-      <label for="lname">Last Name</label>
+    <label for="plan">Plan:</label>
+    <select name="plan_id" formControlName="plan_id">
+      <option *ngFor="let p of plans" [value]="p.id"
+        >{{ p.id }} - {{ p.period }} - {{ p.interval }}</option
+      >
+    </select>
+
+    <label for="name">Count</label>
+    <input
+      type="number"
+      placeholder="Total Count"
+      formControlName="total_count"
+    />
+
+    <label for="name">Start At</label>
+    <input type="number" placeholder="Start At" formControlName="start_at" />
+
+    <div formGroupName="notes">
+      <label for="notes">Notes</label>
       <input
         type="text"
-        id="lname"
-        name="lastname"
-        placeholder="Your last name.."
+        placeholder="Subscription name.."
+        formControlName="notes_key"
       />
-  
-      <label for="country">Country</label>
-      <select id="country" name="country">
-        <option value="australia">Australia</option>
-        <option value="canada">Canada</option>
-        <option value="usa">USA</option>
-      </select>
-  
-      -->
+    </div>
+
+    <div
+      formArrayName="addons"
+      *ngFor="let addon of form.get('addons').controls; let i = index"
+    >
+      <div [formGroupName]="i">
+        <div formGroupName="item">
+          <label for="notes">Name</label>
+          <input type="text" formControlName="name" />
+          <label for="notes">Amount</label>
+          <input type="text" formControlName="amount" />
+          <label for="notes">Currency</label>
+          <input type="text" formControlName="currency" />
+        </div>
+      </div>
+    </div>
+
+    <button type="button" (click)="addAddon()">ADD ADDON</button>
     <input type="submit" value="Submit" [disabled]="!form.valid" />
   </form>
 </div>

@@ -3,9 +3,9 @@
     <label for="name">Subscription Name</label>
     <input
       type="text"
-      name="subscriptionName"
+      name="name"
       placeholder="Subscription name.."
-      [(ngModel)]="subscriptioName"
+      [(ngModel)]="subscription.name"
       required
       minlength="5"
       maxlength="30"
@@ -44,23 +44,45 @@
       Subscription Name is too short.
     </p>
 
-    <!--
-    <label for="lname">Last Name</label>
-    <input
-      type="text"
-      id="lname"
-      name="lastname"
-      placeholder="Your last name.."
-    />
-
-    <label for="country">Country</label>
-    <select id="country" name="country">
-      <option value="australia">Australia</option>
-      <option value="canada">Canada</option>
-      <option value="usa">USA</option>
+    <label for="plan">Plan:</label>
+    <select name="plan_id" [(ngModel)]="subscription.plan_id">
+      <option *ngFor="let p of plans" [value]="p.id"
+        >{{ p.id }} - {{ p.period }} - {{ p.interval }}</option
+      >
     </select>
 
-    -->
+    <label for="name">Count</label>
+    <input
+      type="number"
+      name="total_count"
+      placeholder="Total Count"
+      [(ngModel)]="subscription.total_count"
+      #total_countRef="ngModel"
+    />
+
+    <label for="name">Start At</label>
+    <input
+      type="number"
+      name="start_at"
+      placeholder="Start At"
+      [(ngModel)]="subscription.start_at"
+      #start_atRef="ngModel"
+    />
+
+    <div ngModelGroup="notes">
+      <label for="notes">Notes</label>
+      <input
+        type="text"
+        name="notes_key"
+        placeholder="Subscription name.."
+        [(ngModel)]="subscription.notes.notes_key"
+        required
+        minlength="5"
+        maxlength="30"
+        #subscriptioNameRef="ngModel"
+      />
+    </div>
+
     <input type="submit" value="Submit" [disabled]="!formRef.valid" />
   </form>
 </div>

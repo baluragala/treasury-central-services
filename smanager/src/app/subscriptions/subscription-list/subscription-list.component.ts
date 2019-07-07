@@ -17,7 +17,7 @@ export class SubscriptionListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscriptions = this.service.getSubscriptions();
+    this.service.getSubscriptions().subscribe(subscriptions => this.subscriptions = subscriptions)
   }
 
 }
