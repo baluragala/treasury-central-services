@@ -11,7 +11,8 @@ import { Plan } from '../subscription';
 })
 export class ManageSubscriptionReactiveComponent implements OnInit {
   plans: Array<Plan>;
-  form: FormGroup
+  form: FormGroup;
+  addonArray: FormArray;
   constructor(private service: SubscriptionService, private fb: FormBuilder, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -55,6 +56,7 @@ export class ManageSubscriptionReactiveComponent implements OnInit {
       })])
     })
 
+    this.addonArray = this.form.get('addons') as FormArray;
     this.service.getPlans().subscribe(p => this.plans = p)
     this.service.getSubscription(this.route.snapshot.params["id"]).subscribe(sub => {
       this.form.patchValue(sub)

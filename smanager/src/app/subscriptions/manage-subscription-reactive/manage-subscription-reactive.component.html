@@ -68,7 +68,7 @@
 
     <div
       formArrayName="addons"
-      *ngFor="let addon of form.get('addons').controls; let i = index"
+      *ngFor="let addon of addonArray.controls; let i = index"
     >
       <div [formGroupName]="i">
         <div formGroupName="item">
