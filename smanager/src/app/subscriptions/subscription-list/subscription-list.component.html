@@ -1,0 +1,8 @@
+<h3>Subscriptions</h3>
+<div *ngFor="let s of subscriptions">
+  <div>
+    <h2>
+      <a [routerLink]="['/subs', s.name]">{{ s.name }}</a>
+    </h2>
+  </div>
+</div>

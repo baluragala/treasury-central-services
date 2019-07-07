@@ -1,0 +1,66 @@
+<div>
+  <form #formRef="ngForm" (submit)="handleSubmit(formRef)">
+    <label for="name">Subscription Name</label>
+    <input
+      type="text"
+      name="subscriptionName"
+      placeholder="Subscription name.."
+      [(ngModel)]="subscriptioName"
+      required
+      minlength="5"
+      maxlength="30"
+      #subscriptioNameRef="ngModel"
+    />
+
+    <p
+      *ngIf="
+        subscriptioNameRef.touched &&
+        subscriptioNameRef.dirty &&
+        subscriptioNameRef.errors?.required
+      "
+      class="error"
+    >
+      Subscription Name is required
+    </p>
+    <p
+      *ngIf="
+        subscriptioNameRef.touched &&
+        subscriptioNameRef.dirty &&
+        subscriptioNameRef.errors?.maxlength
+      "
+      class="error"
+    >
+      Subscription Name is too long.
+    </p>
+
+    <p
+      *ngIf="
+        subscriptioNameRef.touched &&
+        subscriptioNameRef.dirty &&
+        subscriptioNameRef.errors?.minlength
+      "
+      class="error"
+    >
+      Subscription Name is too short.
+    </p>
+
+    <!--
+    <label for="lname">Last Name</label>
+    <input
+      type="text"
+      id="lname"
+      name="lastname"
+      placeholder="Your last name.."
+    />
+
+    <label for="country">Country</label>
+    <select id="country" name="country">
+      <option value="australia">Australia</option>
+      <option value="canada">Canada</option>
+      <option value="usa">USA</option>
+    </select>
+
+    -->
+    <input type="submit" value="Submit" [disabled]="!formRef.valid" />
+  </form>
+</div>
